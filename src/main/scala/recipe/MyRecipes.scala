@@ -1,7 +1,7 @@
 package recipe
 
 import RecipeManager._
-import API._
+import RecipeAPI._
 import Ingredient._
 import scala.concurrent.duration._
 
@@ -117,11 +117,11 @@ object MyRecipes {
         slowCookerHoneyGarlicChicken.makeServings(2)
       )
     )
-//    println(shoppingList)
+    println(shoppingList)
 
-    println{
-      slowCookerHoneyGarlicChicken.makeServings(2).checkListFormat
-    }
+//    println{
+//      slowCookerHoneyGarlicChicken.makeServings(2).checkListFormat
+//    }
 
   }
 }

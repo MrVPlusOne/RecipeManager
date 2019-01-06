@@ -2,7 +2,7 @@ package recipe
 
 import org.scalatest.{FlatSpec, Matchers}
 import recipe.RecipeManager._
-import API._
+import RecipeAPI._
 
 class BasicTests extends FlatSpec with Matchers {
   "Amount.simplify" should " simplify tbsp to tsp" in {

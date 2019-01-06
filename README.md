@@ -4,8 +4,8 @@
 
 #### Declare a recipe
 ```scala
-import RecipeManager._
-import API._
+import recipe.RecipeManager._
+import RecipeAPI._
 import Ingredient._
 import scala.concurrent.duration._
 

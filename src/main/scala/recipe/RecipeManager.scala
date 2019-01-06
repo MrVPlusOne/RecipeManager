@@ -268,7 +268,7 @@ object RecipeManager {
     ingredientsTable(recipes.flatMap(_.stages))
   }
 
-  object API {
+  object RecipeAPI {
 
     def add(ingredient: Ingredient, amount: Amount) =
       AddIngredient(ingredient, amount)
