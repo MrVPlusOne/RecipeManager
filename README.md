@@ -12,6 +12,7 @@ import scala.concurrent.duration._
 val slowCookerHoneyGarlicChicken = Recipe(
   name = "Slow cooker honey garlic chicken",
   servings = 4, // portion for 4 servings
+  videoLink = Some("https://youtu.be/dfR_LdA3fPI?t=43"),
   stages = Vector(
     CookingStage(
       Container.bowl,
@@ -57,7 +58,8 @@ println{
 /* [output]:
 
 Slow cooker honey garlic chicken
-servings: 2.0
+servings: 2.0 
+link: https://youtu.be/dfR_LdA3fPI?t=43
 -----------------
 In Bowl: 
   add Honey (1.33 cup)

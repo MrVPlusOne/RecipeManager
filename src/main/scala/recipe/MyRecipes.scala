@@ -62,6 +62,7 @@ object MyRecipes {
   val slowCookerHoneyGarlicChicken = Recipe(
     name = "Slow cooker honey garlic chicken",
     servings = 4,
+    videoLink = Some("https://youtu.be/dfR_LdA3fPI?t=43"),
     stages = Vector(
       CookingStage(
         Container.bowl,
@@ -111,17 +112,17 @@ object MyRecipes {
   }
 
   def main(args: Array[String]): Unit = {
-    val shoppingList = generateShoppingList(
-      Seq(
-        shrimpAndAsparagusStirFry.makeServings(1),
-        slowCookerHoneyGarlicChicken.makeServings(2)
-      )
-    )
-    println(shoppingList)
+//    val shoppingList = generateShoppingList(
+//      Seq(
+//        shrimpAndAsparagusStirFry.makeServings(1),
+//        slowCookerHoneyGarlicChicken.makeServings(2)
+//      )
+//    )
+//    println(shoppingList)
 
-//    println{
-//      slowCookerHoneyGarlicChicken.makeServings(2).checkListFormat
-//    }
+    println{
+      slowCookerHoneyGarlicChicken.makeServings(2).checkListFormat
+    }
 
   }
 }

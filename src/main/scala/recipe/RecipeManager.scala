@@ -163,6 +163,7 @@ object RecipeManager {
   case class Recipe(
     name: String,
     servings: Double,
+    videoLink: Option[String] = None,
     stages: Vector[CookingStage]
   ) {
     def makeServings(servings: Double): Recipe = {
@@ -180,7 +181,7 @@ object RecipeManager {
 
     def checkListFormat: String = {
       s"""$name
-         |servings: $servings
+         |servings: $servings ${if(videoLink.isEmpty) "" else "\nlink: " + videoLink.get}
          |-----------------
          |${stages
            .map { s =>
