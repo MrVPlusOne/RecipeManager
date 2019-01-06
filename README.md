@@ -62,8 +62,8 @@ servings: 2.0
 link: https://youtu.be/dfR_LdA3fPI?t=43
 -----------------
 In Bowl: 
-  add Honey (1.33 cup)
-  add Soy sauce (1.33 cup)
+  add Honey (4.0 tbsp)
+  add Soy sauce (4.0 tbsp)
   add Garlic (2.0 clove)
   add Dried basil (0.5 tsp)
   add Dried oregano (0.5 tsp)

@@ -79,7 +79,7 @@ object RecipeManager {
     case object tbsp extends AmountUnit("tbsp") {
       override def lowerUnit: (AmountUnit, Double) = (tsp, 3)
 
-      override def upperUnit: (AmountUnit, Double) = (cup, 1.0 / 3)
+      override def upperUnit: (AmountUnit, Double) = (cup, 1.0 / 16)
     }
 
     case object lb extends AmountUnit("lb") {
