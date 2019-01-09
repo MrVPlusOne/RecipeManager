@@ -96,9 +96,11 @@ object RecipeManager {
     }
 
     case object piece extends AmountUnit("piece")
+
+    case object slice extends AmountUnit("slice")
   }
 
-  object IngredientCategory extends Enumeration{
+  object IngredientCategory extends Enumeration {
     val vegetable = Value
     val fruit = Value
     val spice = Value
@@ -120,11 +122,15 @@ object RecipeManager {
     // vegetables
     val redPotato = vegetable("Red potato")
     val carrot = vegetable("Carrot")
+    val broccoli = vegetable("broccoli")
     val greenBean = vegetable("Green bean")
     val asparagus = vegetable("Asparagus")
     val garlic = vegetable("Garlic")
     val ginger = vegetable("Ginger")
     val spinach = vegetable("Spinach")
+    val cauliflower = vegetable("Cauliflower")
+    val onion = vegetable("Onion")
+    val dill = vegetable("Dill")
 
     // fruits
     val lemon = fruit("Lemon")
@@ -133,6 +139,7 @@ object RecipeManager {
     // meats
     val shrimp = meat("Shrimp")
     val chickenThigh = meat("Chicken thigh")
+    val salmon = meat("Salmon")
 
     // spices
     val salt = spice("Salt")
@@ -145,6 +152,9 @@ object RecipeManager {
     val honey = spice("Honey")
     val driedBasil = spice("Dried basil")
     val driedOregano = spice("Dried oregano")
+    val garlicPowder = spice("Garlic powder")
+    val coconutOil = spice("Coconut oil")
+    val teriyakiSauce = spice("Teriyaki Sauce")
 
     // others
     val chickenBroth = other("Chicken broth")
@@ -158,6 +168,9 @@ object RecipeManager {
   object Container {
     val fryingPan = Container("Frying pan")
     val bowl = Container("Bowl")
+    val flatSurface: Container = Container("Flat surface")
+    val oven: Container = Container("Oven")
+    val parchment = Container("Parchment")
   }
 
   case class Recipe(
@@ -181,7 +194,8 @@ object RecipeManager {
 
     def checkListFormat: String = {
       s"""$name
-         |servings: $servings ${if(videoLink.isEmpty) "" else "\nlink: " + videoLink.get}
+         |servings: $servings ${if (videoLink.isEmpty) ""
+         else "\nlink: " + videoLink.get}
          |-----------------
          |${stages
            .map { s =>
@@ -247,13 +261,15 @@ object RecipeManager {
     def prettyPrint: String = s"wait until $condition"
   }
 
-  case class Wait(duration: Duration, portionScale: Double = 1.0) extends CookingAction {
+  case class Wait(duration: Duration, portionScale: Double = 1.0)
+      extends CookingAction {
 
-    def scalePortions(factor: Double): Wait = copy(portionScale = portionScale * factor)
+    def scalePortions(factor: Double): Wait =
+      copy(portionScale = portionScale * factor)
 
     def prettyPrint: String = {
       val portion = Amount.round100(portionScale)
-      if(portion == 1)
+      if (portion == 1)
         s"wait $duration"
       else s"wait $duration (should adjust for $portion portion)"
     }
@@ -267,6 +283,12 @@ object RecipeManager {
 
   def totalIngredients(recipes: Seq[Recipe]): Map[Ingredient, Amount] = {
     ingredientsTable(recipes.flatMap(_.stages))
+  }
+
+  object Symptoms {
+    import Ingredient._
+
+    val heartBurn = Set(garlic, crushedRedPepper, garlicPowder, lemon, onion)
   }
 
   object RecipeAPI {
@@ -284,6 +306,7 @@ object RecipeManager {
       def cup: Amount = mkAmount(AmountUnit.cup)
       def clove: Amount = mkAmount(AmountUnit.clove)
       def piece: Amount = mkAmount(AmountUnit.piece)
+      def slice: Amount = mkAmount(AmountUnit.slice)
     }
   }
 

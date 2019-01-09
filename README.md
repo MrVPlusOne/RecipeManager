@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 
 val slowCookerHoneyGarlicChicken = Recipe(
   name = "Slow cooker honey garlic chicken",
-  servings = 4, // portion for 4 servings
+  servings = 4,
   videoLink = Some("https://youtu.be/dfR_LdA3fPI?t=43"),
   stages = Vector(
     CookingStage(
@@ -37,8 +37,8 @@ val slowCookerHoneyGarlicChicken = Recipe(
         add(chickenThigh, 4 piece),
         add(salt, 0.5 tsp),
         Instruction("add the remaining mix"),
-        Instruction("set on low fire"),
-        Wait(8 minutes),
+        Instruction("set fire to medium-high"),
+        Wait(6 hours),
         WaitUntil("chicken cooked"),
         add(greenBean, 1 lb),
         Instruction("(optional) broil"),
@@ -47,6 +47,7 @@ val slowCookerHoneyGarlicChicken = Recipe(
     )
   )
 )
+
 ```
 
 #### Generate recipe checklist
@@ -79,8 +80,8 @@ In Frying pan:
   add Chicken thigh (2.0 piece)
   add Salt (0.25 tsp)
   add the remaining mix
-  set on low fire
-  wait 8 minutes (should adjust for 0.5 portion)
+  set fire to medium-high
+  wait 6 hours (should adjust for 0.5 portion)
   wait until chicken cooked
   add Green bean (8.0 oz)
   (optional) broil
