@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 
 val slowCookerHoneyGarlicChicken = Recipe(
   name = "Slow cooker honey garlic chicken",
-  servings = 4,
+  servings = 8,
   videoLink = Some("https://youtu.be/dfR_LdA3fPI?t=43"),
   stages = Vector(
     CookingStage(
@@ -89,7 +89,7 @@ In Frying pan:
  */
 ```
 
-#### Generate a shopping list for multiple recipes (and sorted by category)
+#### Generate a shopping list for multiple recipes (sorted by category)
 ```scala
 val shoppingList = generateShoppingList(
   Seq(
