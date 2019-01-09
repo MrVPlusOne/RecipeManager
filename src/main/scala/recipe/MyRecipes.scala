@@ -101,7 +101,7 @@ object MyRecipes {
 
   val slowCookerHoneyGarlicChicken = Recipe(
     name = "Slow cooker honey garlic chicken",
-    servings = 4,
+    servings = 8,
     videoLink = Some("https://youtu.be/dfR_LdA3fPI?t=43"),
     stages = Vector(
       CookingStage(

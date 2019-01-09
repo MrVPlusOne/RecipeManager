@@ -53,7 +53,7 @@ val slowCookerHoneyGarlicChicken = Recipe(
 #### Generate recipe checklist
 ```scala
 println{
-  slowCookerHoneyGarlicChicken.makeServings(2).checkListFormat
+  slowCookerHoneyGarlicChicken.makeServings(4).checkListFormat
 }
 
 /* [output]:
