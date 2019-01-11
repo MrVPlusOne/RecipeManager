@@ -188,30 +188,56 @@ object MyRecipes {
     )
   )
 
-  def generateShoppingList(recipes: Seq[Recipe]): String = {
-    val ingList = totalIngredients(recipes).toList
-    val maxNameLength = ingList.map(_._1.name.length).max
-
-    ingList
-      .sortBy { case (ing, _) => (ing.category, ing.name) }
-      .map {
-        case (ing, amount) =>
-          s"${ing.name.padTo(maxNameLength + 1, ' ')}| ${Amount.simplify(amount)}"
-      }
-      .mkString("\n")
-  }
+  val onePanTeriyakiChicken = Recipe(
+    name = "One-pan teriyaki chicken",
+    servings = 2,
+    videoLink = Some("https://youtu.be/y5ntYNMpo_U?t=14"),
+    Vector(
+      CookingStage(
+        Container.fryingPan,
+        Vector(
+          add(soySauce, 0.5 cup),
+          add(water, 3 tbsp),
+          add(cornStarch, 1 tbsp),
+          add(honey, 4 tbsp),
+          Instruction("Mix all"),
+          Instruction("Set fire to small"),
+          WaitUntil("boil")
+        )
+      ),
+      CookingStage(
+        Container.oven,
+        Vector(
+          Instruction("Add previous mix"),
+          add(chickenBreast, 3 piece),
+          add(bellPepper, 0.5 piece),
+          add(broccoli, 1 cup),
+          add(greenBean, 1 cup),
+          add(carrot, 1 cup),
+          add(salt, 0.25 tsp),
+          add(blackPepper, 0.25 tsp),
+          Instruction("Add previous mix"),
+          Instruction("Bake at 400 F"),
+          Wait(20 minutes),
+          Instruction("Cut chicken breasts"),
+          add(whiteSesame, 0.1 tsp),
+          add(greenOnion, 0.2 tsp)
+        )
+      )
+    )
+  )
 
   def main(args: Array[String]): Unit = {
 //    val shoppingList = generateShoppingList(
 //      Seq(
-//        shrimpAndAsparagusStirFry.makeServings(1),
-//        slowCookerHoneyGarlicChicken.makeServings(2)
+//        creamyShrimpFettuccine.makeServings(2),
+//        onePanTeriyakiChicken.makeServings(2)
 //      )
 //    )
 //    println(shoppingList)
 
     println {
-      slowCookerHoneyGarlicChicken.makeServings(2).checkListFormat
+      onePanTeriyakiChicken.checkListFormat()
     }
 
   }

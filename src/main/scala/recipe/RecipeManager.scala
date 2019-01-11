@@ -122,7 +122,7 @@ object RecipeManager {
     // vegetables
     val redPotato = vegetable("Red potato")
     val carrot = vegetable("Carrot")
-    val broccoli = vegetable("broccoli")
+    val broccoli = vegetable("Broccoli")
     val greenBean = vegetable("Green bean")
     val asparagus = vegetable("Asparagus")
     val garlic = vegetable("Garlic")
@@ -131,6 +131,8 @@ object RecipeManager {
     val cauliflower = vegetable("Cauliflower")
     val onion = vegetable("Onion")
     val dill = vegetable("Dill")
+    val bellPepper = vegetable("Bell pepper")
+    val greenOnion = vegetable("Green Onion")
 
     // fruits
     val lemon = fruit("Lemon")
@@ -140,6 +142,7 @@ object RecipeManager {
     val shrimp = meat("Shrimp")
     val chickenThigh = meat("Chicken thigh")
     val salmon = meat("Salmon")
+    val chickenBreast = meat("Chicken Breast")
 
     // spices
     val salt = spice("Salt")
@@ -155,11 +158,14 @@ object RecipeManager {
     val garlicPowder = spice("Garlic powder")
     val coconutOil = spice("Coconut oil")
     val teriyakiSauce = spice("Teriyaki Sauce")
+    val whiteSesame = spice("White sesame")
 
     // others
     val chickenBroth = other("Chicken broth")
     val milk = other("Milk")
     val fettuccini = other("Fettuccini")
+    val water = other("Water")
+    val cornStarch = other("Corn starch")
 
   }
 
@@ -192,22 +198,39 @@ object RecipeManager {
       )
     }
 
-    def checkListFormat: String = {
-      s"""$name
+    def checkListFormat(warnReflux: Boolean = true): String = {
+      val refluxIngs =
+        ingredientsTable(stages).keySet.intersect(Symptoms.reflux)
+      val warn =
+        if (warnReflux && refluxIngs.nonEmpty) {
+          s"[Warning] Reduce ${listFormat(refluxIngs.toList.map(_.toString))} to avoid Reflux.\n"
+        } else ""
+
+      warn +
+        s"""$name
          |servings: $servings ${if (videoLink.isEmpty) ""
-         else "\nlink: " + videoLink.get}
+           else "\nlink: " + videoLink.get}
          |-----------------
          |${stages
-           .map { s =>
-             s"In ${s.container.name}: \n" + s.actions
-               .map(a => "  " + a.toString)
-               .mkString("", "\n", "\n")
-           }
-           .mkString("", "\n", "")}
+             .map { s =>
+               s"In ${s.container.name}: \n" + s.actions
+                 .map(a => "  " + a.toString)
+                 .mkString("", "\n", "\n")
+             }
+             .mkString("", "\n", "")}
        """.stripMargin
     }
 
     def totalIngredients: Map[Ingredient, Amount] = ingredientsTable(stages)
+  }
+
+  def listFormat(elements: Seq[String]): String = {
+    elements.length match {
+      case 0 => ""
+      case 1 => elements.head
+      case 2 => elements.head + " and " + elements(1)
+      case _ => elements.init.mkString(", ") + ", and " + elements.last
+    }
   }
 
   def ingredientsTable(stages: Seq[CookingStage]): Map[Ingredient, Amount] = {
@@ -288,7 +311,15 @@ object RecipeManager {
   object Symptoms {
     import Ingredient._
 
-    val heartBurn = Set(garlic, crushedRedPepper, garlicPowder, lemon, onion)
+    val reflux = Set(
+      garlic,
+      onion,
+      crushedRedPepper,
+      garlicPowder,
+      lemon,
+      teriyakiSauce,
+      broccoli
+    )
   }
 
   object RecipeAPI {
@@ -307,6 +338,19 @@ object RecipeManager {
       def clove: Amount = mkAmount(AmountUnit.clove)
       def piece: Amount = mkAmount(AmountUnit.piece)
       def slice: Amount = mkAmount(AmountUnit.slice)
+    }
+
+    def generateShoppingList(recipes: Seq[Recipe]): String = {
+      val ingList = totalIngredients(recipes).toList
+      val maxNameLength = ingList.map(_._1.name.length).max
+
+      ingList
+        .sortBy { case (ing, _) => (ing.category, ing.name) }
+        .map {
+          case (ing, amount) =>
+            s"${ing.name.padTo(maxNameLength + 1, ' ')}| ${Amount.simplify(amount)}"
+        }
+        .mkString("\n")
     }
   }
 
